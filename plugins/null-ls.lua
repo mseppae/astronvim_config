@@ -17,8 +17,8 @@ return {
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     config.sources = {
       -- Set a formatter
-      null_ls.builtins.formatting.stylua,
-      null_ls.builtins.formatting.prettier,
+      formatting.stylua,
+      formatting.prettier,
 
       conditional(
         function(utils)
@@ -27,7 +27,7 @@ return {
                 command = "bundle",
                 args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
               }
-            or null_ls.builtins.formatting.rubocop
+              or formatting.rubocop
         end
       ),
 
@@ -38,7 +38,7 @@ return {
                 command = "bundle",
                 args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
               }
-            or null_ls.builtins.diagnostics.rubocop
+              or diagnostics.rubocop
         end
       ),
     }
