@@ -20,6 +20,9 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    --
+    -- Rename with confirmation
+    ["yrw"] = { "yiW:%s/<C-R>0\\C//gc<Left><Left><Left>" },
   },
   t = {
     -- setting a mapping to false will disable it
