@@ -19,6 +19,7 @@ return {
       -- Set a formatter
       formatting.stylua,
       formatting.prettier,
+      formatting.goimports,
 
       conditional(
         function(utils)
