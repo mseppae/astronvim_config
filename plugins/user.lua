@@ -40,4 +40,8 @@ return {
     cmd = "TodoTelescope",
     opts = {},
   },
+  {
+    "tpope/vim-surround",
+    event = "User AstroFile",
+  },
 }
