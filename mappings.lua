@@ -21,6 +21,7 @@ return {
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
     --
+    -- TODO: Review if needed
     -- Rename with confirmation
     ["yrw"] = { "yiW:%s/<C-R>0\\C//gc<Left><Left><Left>" },
   },

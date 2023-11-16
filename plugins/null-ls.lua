@@ -1,3 +1,4 @@
+-- TODO: Review the sanity of this setup
 return {
   "jose-elias-alvarez/null-ls.nvim",
   opts = function(_, config)

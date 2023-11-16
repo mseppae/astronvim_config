@@ -18,6 +18,7 @@ return {
       },
     },
   },
+  -- TODO: Check if this can be cleaned up.
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
