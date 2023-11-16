@@ -14,8 +14,6 @@ return {
     "NvChad/nvim-colorizer.lua",
     opts = {
       user_default_options = {
-        -- tailwind option does not seem to work if names is not on
-        names = true,
         tailwind = true,
       },
     },
