@@ -12,6 +12,7 @@ return {
         "lua_ls",
         "tailwindcss",
         "tsserver",
+        "solargraph",
       },
     },
   },
