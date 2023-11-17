@@ -1,57 +1,52 @@
--- TODO: Review the sanity of this setup
 return {
   "jose-elias-alvarez/null-ls.nvim",
+  -- debug = true,
+  -- NOTE: Assumption - Setup the formatters and linters that cannot be done with mason here.
+  -- In case of rubocop it ended up running formatter and linter twice, since mason also installed it.
+  -- Now it is excluded there and setup here (since we need to modify the arguments)
   opts = function(_, config)
-    -- config variable is the default configuration table for the setup function call
-    local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-    if not null_ls_status_ok then return config end
+    local null_ls = require "null-ls"
 
-    local rubocop_args = {
-      "-A", --- Changed from -a to -A
+    local conditional = function(fn)
+      local utils = require("null-ls.utils").make_conditional_utils()
+      return fn(utils)
+    end
+
+    local rubocop_formatting_args = {
+      -- Changed from -a to -A, not sure of this though, I just want that FrozenStringLiteral cop
+      "-A",
       "-f",
       "quiet",
       "--stderr",
       "--stdin",
       "$FILENAME",
     }
-    local formatting = null_ls.builtins.formatting
-    local diagnostics = null_ls.builtins.diagnostics
-    local conditional = function(fn)
-      local utils = require("null-ls.utils").make_conditional_utils()
-      return fn(utils)
-    end
 
-    -- Check supported formatters and linters
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+    local rubocop_formatter_config = conditional(function(utils)
+      if utils.root_has_file "Gemfile" then
+        return {
+          command = "bundle",
+          args = vim.list_extend({ "exec", "rubocop" }, rubocop_formatting_args),
+        }
+      end
+      return { args = rubocop_formatting_args }
+    end)
+
+    local rubocop_linter_config = conditional(function(utils)
+      if utils.root_has_file "Gemfile" then
+        return {
+          command = "bundle",
+          args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
+        }
+      end
+      return {}
+    end)
+
     config.sources = {
-      -- Set a formatter
-      formatting.stylua,
-      formatting.prettier,
-      formatting.goimports,
-
-      conditional(
-        function(utils)
-          return utils.root_has_file "Gemfile"
-              and formatting.rubocop.with {
-                command = "bundle",
-                args = vim.list_extend({ "exec", "rubocop" }, rubocop_args),
-              }
-              or formatting.rubocop.with { args = rubocop_args}
-        end
-      ),
-
-      conditional(
-        function(utils)
-          return utils.root_has_file "Gemfile"
-              and diagnostics.rubocop.with {
-                command = "bundle",
-                args = vim.list_extend({ "exec", "rubocop" }, diagnostics.rubocop._opts.args),
-              }
-              or diagnostics.rubocop
-        end
-      ),
+      null_ls.builtins.formatting.rubocop.with(rubocop_formatter_config),
+      null_ls.builtins.diagnostics.rubocop.with(rubocop_linter_config),
     }
-    return config -- return final config table
+
+    return config
   end,
 }
