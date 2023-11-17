@@ -3,14 +3,6 @@ return {
   opts = function(_, config)
     local ensure_installed_extensions = { "lua", "ruby", "javascript", "typescript", "go" }
     local config_replacements = {
-      incremental_selection = {
-        keymaps = {
-          init_selection = "<CR>",
-          node_decremental = "<S-TAB>",
-          node_incremental = "<TAB>",
-          scope_incremental = "<CR>",
-        },
-      },
       endwise = {
         enable = true
       }
