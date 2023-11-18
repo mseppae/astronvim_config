@@ -1,6 +1,9 @@
 return {
   settings = {
-    autoformat = false,
-    formatting = false,
+    solargraph = {
+      autoformat = false,
+      formatting = false,
+      diagnostics = false,
+    },
   },
 }
