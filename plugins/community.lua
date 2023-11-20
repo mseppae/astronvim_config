@@ -5,4 +5,8 @@ return {
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
   { import = "astrocommunity.colorscheme.kanagawa-nvim" },
   { import = "astrocommunity.note-taking.neorg" },
+  { import = "astrocommunity.color.twilight-nvim" },
+  { import = "astrocommunity.color.headlines-nvim" },
+  -- https://github.com/azabiong/vim-highlighter
+  { import = "astrocommunity.color.vim-highlighter" },
 }
