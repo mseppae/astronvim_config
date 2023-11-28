@@ -6,6 +6,4 @@ return {
   { import = "astrocommunity.colorscheme.kanagawa-nvim" },
   { import = "astrocommunity.note-taking.neorg" },
   { import = "astrocommunity.color.headlines-nvim" },
-  -- https://github.com/azabiong/vim-highlighter
-  { import = "astrocommunity.color.vim-highlighter" },
 }
