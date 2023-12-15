@@ -16,6 +16,7 @@ return {
         "tailwindcss",
         "tsserver",
         "solargraph",
+        "sorbet",
       },
     },
   },
